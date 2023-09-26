@@ -1,0 +1,18 @@
+body{
+    background-color: black;
+}
+.main_container{
+    scroll-behavior: auto;
+}
+.about_head{
+    z-index: 200;
+    margin-bottom: 2em;
+}
+p{
+    margin-top: 2em;
+}
+.about{
+    margin-top: 20em;
+    padding: 5%;
+    background-color: black;
+}

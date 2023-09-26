@@ -40,7 +40,7 @@ const Main = () => {
                 <div className="tree tree3"></div>
                 <div className="tree tree4"></div>
                 <div className="tree tree5"></div>
-                <h2 style={{ letterSpacing: '6px' }}>
+                <h2 className='heading_samyuktha' style={{ letterSpacing: '6px', margin:'1.2em' }}>
                     <span style={{ '--i': 1 }}>S</span>
                     <span style={{ "--i": 2 }}>a</span>
                     <span style={{ "--i": 3 }}>m</span>
@@ -50,9 +50,9 @@ const Main = () => {
                     <span style={{ "--i": 7 }}>t</span>
                     <span style={{ "--i": 8 }}>h</span>
                     <span style={{ "--i": 9 }}>a</span>
-                    <span style={{ "--i": 10 }}>7</span>
+                    {/* <span style={{ "--i": 10 }}>7</span>
                     <span style={{ "--i": 11 }}>.</span>
-                    <span style={{ "--i": 12 }}>0</span>
+                    <span style={{ "--i": 12 }}>0</span> */}
                 </h2>
 
             </div>

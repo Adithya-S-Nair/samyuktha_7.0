@@ -9,7 +9,8 @@ body {
             #05060f 45%,
             #0d0b30 100%);
     box-sizing: border-box;
-    overflow: hidden;
+    overflow-x: hidden;
+
 }
 
 .containerr {
@@ -94,7 +95,7 @@ body {
 
 /* Smoke */
 .smoke {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     width: 180px;
@@ -107,7 +108,7 @@ body {
 }
 
 .smoke div {
-    position: absolute;
+    position: fixed;
     top: -20px;
     left: 100px;
     width: 180px;
@@ -118,8 +119,9 @@ body {
 }
 
 /* Forest Background */
-.tree {
-    position: absolute;
+/* .tree {
+    z-index: -3;
+    position: fixed;
     bottom: 0;
     left: 0;
     width: 400px;
@@ -204,9 +206,11 @@ body {
 .tree2 {
     background: #0d0b30;
     transform: rotate(-30deg);
+    z-index: -1;
 }
 
 .tree3 {
+    z-index: -1;
     transform: rotate(-20deg);
     transform: scale(3);
     top: 225px;
@@ -214,6 +218,7 @@ body {
 }
 
 .tree4 {
+    z-index: -1;
     left: 600px;
     top: 200px;
     transform: scaleX(-1);
@@ -221,10 +226,11 @@ body {
 }
 
 .tree5 {
+    z-index: -1;
     left: 1260px;
     top: 50px;
     transform: scale(3);
-}
+} */
 
 /* Line */
 .dancing-line {
@@ -533,7 +539,12 @@ body {
     }
 }
 
-h2 {
+.heading_samyuktha {
+    z-index: 100;
+    margin-top: 100px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
     position: relative;
     font-size: 12vw;
     font-family: 'Creepster', cursive;
