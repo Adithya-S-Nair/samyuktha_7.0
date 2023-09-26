@@ -44,7 +44,7 @@ const Slider = () => {
 
   return (
     <section className="game-section">
-        <center><h2 className='text-light about_head h2'>About <span className='text-warning'>Us</span></h2></center>
+        <center><h2 className='text-light about_head h2'>Featured <span className='text-warning'>Events</span></h2></center>
       <div className="owl-carousel d-sm-flex justify-space-between custom-carousel owl-theme ">
         {items.map((item, index) => (
           <div
