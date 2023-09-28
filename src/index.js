@@ -3,10 +3,18 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+//Context
+import { AdminNavSelectContextProvider } from './Context/AdminNavSelectContext';
+import { FirebaseProvider } from './Context/firebaseContext';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <FirebaseProvider>
+      <AdminNavSelectContextProvider>
+        <App />
+      </AdminNavSelectContextProvider>
+    </FirebaseProvider>
   </React.StrictMode>
 );
 
