@@ -3,7 +3,7 @@ import { useFirebase } from '../../Context/firebaseContext';
 import { collection, getDocs } from 'firebase/firestore';
 
 const AllEvents = () => {
-    const db = useFirebase();
+    const {db} = useFirebase();
     const [events, setEvents] = useState([]);
 
     useEffect(() => {
