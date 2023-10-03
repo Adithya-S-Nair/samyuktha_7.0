@@ -5,15 +5,20 @@ body {
     background-color: #0b061f;
     /* position: fixed; */
 }
+.logo_main {
+    width: 100px;
+}
 
 .menu {
+    position: fixed;
     display: flex;
     justify-content: space-between;
     position: relative;
+    align-items: center;
     z-index: 1;
     padding: 20px;
     max-width: 800px;
-    margin: 20px auto;
+    margin: 0px auto;
 }
 
 @media (max-width: 650px) {
@@ -44,5 +49,5 @@ body {
     top: 0;
     left: 0;
     z-index: -1;
-    border-radius: 30px;
+    border-radius: 50px;
 }

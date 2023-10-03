@@ -1,37 +1,37 @@
 import React, { useState } from 'react';
 import './Slider.css'
+import { Link, useNavigate } from 'react-router-dom';
 
 const Slider = () => {
   const [activeItem, setActiveItem] = useState(null);
+  const navigate = useNavigate()
+
+  const handleView = async() =>{
+    navigate('/details')
+  }
 
   const items = [
     {
-      backgroundImage: 'url(https://ucarecdn.com/75d7700d-c102-40ff-9ba1-f0641444c616/dota2.jpg)',
-      title: 'Dota 2',
+      backgroundImage: 'url(https://marketplace.canva.com/EAFG0uPwdsI/1/0/1131w/canva-orange-ilustrated-halloween-party-poster-Ds8XT83rKm0.jpg)',
+      title: 'Tresure Hunt',
       description:
         'Dota 2 is a multiplayer online battle arena by Valve. The game is a sequel to Defense of the Ancients, which was a community-created mod for Blizzard Entertainment\'s Warcraft III.',
     },
     {
-        backgroundImage: 'url(https://ucarecdn.com/2a5f69bc-befa-49f4-acc6-ab1dcae514c7/winter3.jpg)',
-        title: 'Dota 2',
+        backgroundImage: 'url(https://marketplace.canva.com/EAFrVizLQjc/1/0/1131w/canva-black-grunge-illustrated-halloween-party-poster-5J1jKO7UW0o.jpg)',
+        title: 'Coding',
         description:
           'Dota 2 is a multiplayer online battle arena by Valve. The game is a sequel to Defense of the Ancients, which was a community-created mod for Blizzard Entertainment\'s Warcraft III.',
       },
       {
-        backgroundImage: 'url(https://ucarecdn.com/ec1918b1-2674-452c-bf61-8f73d8cc40c6/rdr2.jpg)',
-        title: 'Dota 2',
+        backgroundImage: 'url(https://img.freepik.com/free-vector/realistic-halloween-party-poster-template_52683-44849.jpg)',
+        title: 'Football',
         description:
           'Dota 2 is a multiplayer online battle arena by Valve. The game is a sequel to Defense of the Ancients, which was a community-created mod for Blizzard Entertainment\'s Warcraft III.',
       },
       {
-        backgroundImage: 'url(https://ucarecdn.com/75d7700d-c102-40ff-9ba1-f0641444c616/dota2.jpg)',
-        title: 'Dota 2',
-        description:
-          'Dota 2 is a multiplayer online battle arena by Valve. The game is a sequel to Defense of the Ancients, which was a community-created mod for Blizzard Entertainment\'s Warcraft III.',
-      },
-      {
-        backgroundImage: 'url(https://ucarecdn.com/75d7700d-c102-40ff-9ba1-f0641444c616/dota2.jpg)',
-        title: 'Dota 2',
+        backgroundImage: 'url(https://static.vecteezy.com/system/resources/previews/001/822/430/original/flat-design-halloween-party-poster-template-free-vector.jpg)',
+        title: 'Hackathon',
         description:
           'Dota 2 is a multiplayer online battle arena by Valve. The game is a sequel to Defense of the Ancients, which was a community-created mod for Blizzard Entertainment\'s Warcraft III.',
       },
@@ -54,12 +54,14 @@ const Slider = () => {
             onClick={() => handleItemClick(index)}
           >
             <div className="item-desc">
-              <h3>{item.title}</h3> 
+              <h4>{item.title}</h4> 
               <p>{item.description}</p>
+              <button onClick={handleView} className='btn btn-sm btn-outline-warning'>View</button>
             </div>
           </div>
         ))}
       </div>
+      <center><Link to='/events' className="btn btn-warning">Explore more</Link></center>
     </section>
   );
 };

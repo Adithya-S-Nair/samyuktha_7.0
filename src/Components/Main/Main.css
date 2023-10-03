@@ -21,6 +21,9 @@ body {
     justify-content: center;
     position: relative;
 }
+h4{
+    color: wheat;
+}
 
 /* Sky */
 .moon {

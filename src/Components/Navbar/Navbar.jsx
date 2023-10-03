@@ -1,6 +1,8 @@
 import React, { createRef, useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import './NavBar.css'
+import logo from '../About/first look logo.png'
+import { Link } from "react-router-dom";
 
 /*--------------------
 Items
@@ -9,22 +11,32 @@ const items = [
     {
         name: "Events",
         color: "#ffac09",
-        href: "#"
+        href: "/events",
+        type: 'text'
     },
     {
         name: "About Us",
         color: "#ffac09",
-        href: "#"
+        href: "#",
+        type: 'text'
+    },
+    {
+        name: logo,
+        color: "#ffac09",
+        href: "/home",
+        type: 'image'
     },
     {
         name: "Contact Us",
         color: "#ffac09",
-        href: "#"
+        href: "#",
+        type: 'text'
     },
     {
         name: "Sign In",
         color: "#ffac09",
-        href: "#"
+        href: "#",
+        type: 'text'
     }
 ];
 
@@ -75,21 +87,25 @@ const Menu = ({ items }) => {
     return (
         <div
             ref={$root}
-            className="menu"
+            className="menu fixed-top"
         >
 
             {items.map((item, index) => (
-                <a
+                item.type == 'text' ?
+                <Link
                     key={item.name}
                     ref={$items.current[index]}
                     className={`item ${active === index ? 'active' : ''}`}
                     onMouseEnter={() => {
                         setActive(index);
                     }}
-                    href={item.href}
+                    to={item.href}
                 >
                     {item.name}
-                </a>
+                </Link> :
+                <Link to='/'>
+                <img src={logo} className="logo_main" />
+                </Link>
             ))}
             <div
                 ref={$indicator1}

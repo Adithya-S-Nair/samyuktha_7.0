@@ -53,7 +53,8 @@ const Main = () => {
                     {/* <span style={{ "--i": 10 }}>7</span>
                     <span style={{ "--i": 11 }}>.</span>
                     <span style={{ "--i": 12 }}>0</span> */}
-                </h2>
+                </h2><br />
+                
 
             </div>
             <img src="https://i.imgur.com/EtCPE3S.png" class="spider" />

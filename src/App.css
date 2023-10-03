@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Creepster&display=swap');
+
+
 body{
     background-color: black;
 }
@@ -15,4 +18,19 @@ p{
     margin-top: 20em;
     padding: 5%;
     background-color: black;
+}
+.thum_image {
+    max-height:500px;
+}
+.details_head {
+    font-family: 'Creepster';
+}
+ul {
+    list-style-type:circle;
+    color: white; /* Change the color to white */
+  }
+.contact{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
 }
