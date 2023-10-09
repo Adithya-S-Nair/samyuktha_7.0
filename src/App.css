@@ -29,8 +29,9 @@ ul {
     list-style-type:circle;
     color: white; /* Change the color to white */
   }
-.contact{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
+
+.rule_card{
+    box-shadow: 1px 1px 25px rgba(184, 184, 184, 0.022);
+    background-color: black;
+    
 }

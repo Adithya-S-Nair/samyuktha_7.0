@@ -1,51 +1,63 @@
-import React from 'react';
-import Card from './EventCard';
-import './Event.css'
-import img1 from './Code Crypt.jpg'
+import React, { useEffect, useState } from "react";
+import "./Event.css";
+import { Link } from 'react-router-dom';
+import { useFirebase } from "../../Context/firebaseContext";
+import { collection, getDocs } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 const CardList = () => {
-  // Sample data for demonstration
-  const cardData = [
-    {
-        title: 'Card 1',
-        description: 'Description for Card 1',
-        imageUrl: img1
-      },
-      {
-        title: 'Card 1',
-        description: 'Description for Card 1',
-        imageUrl: 'https://marketplace.canva.com/EAFrVizLQjc/1/0/1131w/canva-black-grunge-illustrated-halloween-party-poster-5J1jKO7UW0o.jpg',
-      },
-      {
-        title: 'Card 1',
-        description: 'Description for Card 1',
-        imageUrl: 'https://static.vecteezy.com/system/resources/previews/001/822/430/original/flat-design-halloween-party-poster-template-free-vector.jpg',
-      },
-      {
-        title: 'Card 1',
-        description: 'Description for Card 1',
-        imageUrl: 'https://img.freepik.com/free-vector/realistic-halloween-party-poster-template_52683-44849.jpg',
-      },
-      {
-        title: 'Card 1',
-        description: 'Description for Card 1',
-        imageUrl: 'https://marketplace.canva.com/EAFG0uPwdsI/1/0/1131w/canva-orange-ilustrated-halloween-party-poster-Ds8XT83rKm0.jpg',
-      },
-      {
-        title: 'Card 1',
-        description: 'Description for Card 1',
-        imageUrl: 'https://img.freepik.com/free-vector/realistic-halloween-party-poster_52683-44848.jpg',
-      },
-    // Add more card data...
-  ];
+  const navigate = useNavigate();
+
+  const handleRegisterClick = (eventName) => {
+    navigate(`/details/${eventName}`);
+  };
+
+  const { db } = useFirebase();
+  const [events, setEvents] = useState([]);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const eventsCollectionRef = collection(db, "events");
+        const querySnapshot = await getDocs(eventsCollectionRef);
+        const eventsData = [];
+
+        querySnapshot.forEach((doc) => {
+          const data = doc.data();
+          eventsData.push(data);
+        });
+        setEvents(eventsData);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+    fetchEvents();
+    console.log(events);
+  }, [db]);
 
   return (
     <div className="container">
-    <center><h1 className='event_head text-warning p-3'>Events</h1></center>
+      <center>
+        <h1 className="event_head text-warning p-3">Events</h1>
+      </center>
       <div className="container_flex">
-      {cardData.map((card, index) => (
-        <Card key={index} {...card} />
-      ))}
+      {events.map((event, index) => (
+  <div key={index} className="card m-3">
+    <div className="card-image">
+      <img src={event.cover} alt={event.eventName} />
+    </div>
+    <div className="card-details">
+      <h5 className="card-title text-warning">{event.eventName}</h5>
+        <button className='btn btn-warning' onClick={()=>{
+          handleRegisterClick(event.eventName)
+        }}>
+          Register
+        </button>
+    
+    </div>
+  </div>
+))}
+
       </div>
     </div>
   );

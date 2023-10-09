@@ -22,7 +22,6 @@ const AllEvents = () => {
                 console.error('Error fetching events:', error);
             }
         };
-
         fetchEvents();
     }, [db]);
     return (

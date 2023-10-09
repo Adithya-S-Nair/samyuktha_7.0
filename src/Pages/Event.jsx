@@ -5,8 +5,14 @@ import MobileNav from '../Components/Mobilenav/MobileNav'
 import Footer from '../Components/Footer/Footer'
 import useMediaQuery from '@mui/material/useMediaQuery';
 import CardList from '../Components/Event/EventList'
+import firebase from '../Firebase/Config'
+
+
 
 export default function Event() {
+
+  
+    
     const isSmallScreen = useMediaQuery('(max-width: 784px)');
     const [drawer, setDrawer] = useState(false);
   

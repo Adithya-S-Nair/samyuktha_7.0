@@ -2,13 +2,12 @@ import React from 'react';
 import './Event.css'
 import { Link, useNavigate } from 'react-router-dom';
 
-const Card = ({ title, description, imageUrl }) => {
+const Card = ({ eventName, cover }) => {
   const navigate = useNavigate();
 
   const eventDetails = {
-    title,
-    description,
-    imageUrl,
+    eventName,
+    cover
   };
 
   const handleRegisterClick = () => {
@@ -19,11 +18,10 @@ const Card = ({ title, description, imageUrl }) => {
   return (
     <div className="card m-3">
       <div className="card-image">
-        <img src={imageUrl} alt={title} />
+        <img src={cover} alt={eventName} />
       </div>
       <div className="card-details">
-        <h5 className="card-title text-warning">{title}</h5>
-        <p className="card-text text-light">{description}</p>
+        <h5 className="card-title text-warning">{eventName}</h5>
         <button className='btn btn-warning' onClick={handleRegisterClick}>
           Register
         </button>
