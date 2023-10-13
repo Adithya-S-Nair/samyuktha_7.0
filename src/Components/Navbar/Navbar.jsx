@@ -29,7 +29,7 @@ const items = [
     {
         name: "Contact Us",
         color: "#ffac09",
-        href: "#",
+        href: "/contact",
         type: 'text'
     },
     {

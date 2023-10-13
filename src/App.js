@@ -9,6 +9,7 @@ import HomePage from './Pages/MainPage'
 import AdminPage from './Pages/Adminpage'
 import Event from './Pages/Event';
 import Details from './Pages/Details';
+import Contact from './Pages/contact';
 
 const App = () => {
   return (
@@ -16,9 +17,10 @@ const App = () => {
       <Router>
         <Routes>
           <Route exact path='/' element={<HomePage />} />
-          <Route path='/events' element= {<Event/>} />
+          <Route exact path='/contact' element= {<Contact/>}/>
+          <Route exact path='/events' element= {<Event/>} />
           <Route exact path='/admin' element={<AdminPage />} />
-          <Route path='/details/:name' element={<Details/>}/>
+          <Route exact path='/details/:name' element={<Details/>}/>
         </Routes>
       </Router>
     </>

@@ -31,7 +31,26 @@ ul {
   }
 
 .rule_card{
-    box-shadow: 1px 1px 25px rgba(184, 184, 184, 0.022);
+    box-shadow: 1px 1px 25px #ffad090c;
     background-color: black;
     
 }
+ .contact_form{
+    box-shadow: 1px 1px 25px rgba(184, 184, 184, 0.022);
+    background-color: black;
+    max-width: 700px;
+ }
+ .contact_card {
+    box-shadow: 1px 1px 25px #ffad091f;
+    background-color: black;
+    max-width: 500px;
+    min-width: 290px
+
+ }
+ .icon_detail{
+    color: #ffad09;
+    font-size: 60px;
+ }
+ .prize_text {
+    font-size: 20px;
+ }
