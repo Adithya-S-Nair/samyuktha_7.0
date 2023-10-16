@@ -5,73 +5,127 @@ import { useMediaQuery } from "@mui/material";
 import MobileNav from "../Components/Mobilenav/MobileNav";
 import "../App.css";
 import { useParams } from "react-router-dom";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  query,
+  setDoc,
+  onSnapshot,
+  where,
+} from "firebase/firestore";
 import { useFirebase } from "../Context/firebaseContext";
 import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import CallIcon from "@mui/icons-material/Call";
-import { signInWithPopup, GoogleAuthProvider ,getAuth} from "firebase/auth";
-
-
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  getAuth,
+  setPersistence,
+  browserLocalPersistence,
+} from "firebase/auth";
+import RegistrationForm from "../Components/Modal/RegistrationModel/RegistrationModel";
 export default function Details() {
   const { name } = useParams();
+  const { id } = useParams();
+
   const isSmallScreen = useMediaQuery("(max-width: 784px)");
   const [drawer, setDrawer] = useState(false);
-  
+  const [isRegistered, setIsRegistered] = useState(false);
   console.log(name);
 
   const { db } = useFirebase();
   const [events, setEvents] = useState([]);
 
+  const [user, setUser] = useState("");
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const eventsCollectionRef = collection(db, "events");
-        const q = query(eventsCollectionRef, where("eventName", "==", name)); // Filter by eventName
-        const eventsData = [];
-        const querySnapshot = await getDocs(q);
+        const q = query(eventsCollectionRef, where("eventName", "==", name));
 
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          eventsData.push(data);
+        const unsubscribe = onSnapshot(q, (querySnapshot) => {
+          const eventsData = [];
+          querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            eventsData.push(data);
+          });
+          setEvents(eventsData);
+
+          const uid = localStorage.getItem("uid");
+
+          if (eventsData.length > 0 && eventsData[0].participants) {
+            if (uid in eventsData[0].participants) {
+              setIsRegistered(true);
+              console.log("User is registered for the event");
+            } else {
+              setIsRegistered(false);
+              console.log("User is not registered for the event");
+            }
+          } else {
+            setIsRegistered(false);
+            console.log("Event data is not available.");
+          }
         });
-        setEvents(eventsData);
+
+        return () => {
+          // Unsubscribe from the listener when the component unmounts
+          unsubscribe();
+        };
       } catch (error) {
         console.error("Error fetching events:", error);
       }
     };
     fetchEvents();
-  }, [db]);
-
+  }, [db, name]);
   const openDrawer = () => {
     setDrawer(true);
   };
+  console.log(events);
 
-  const handleRegister = () => {
+  const handleSignin = () => {
     const auth = getAuth();
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        localStorage.setItem("user",user);
-        // IdP data available using getAdditionalUserInfo(result)
-        // ...
+    setPersistence(auth, browserLocalPersistence)
+      .then(() => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+          .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            // The signed-in user info.
+            const user = result.user;
+
+            setUser(user);
+            localStorage.setItem("userEmail", user.email);
+            localStorage.setItem("userName", user.displayName);
+            localStorage.setItem("uid", user.uid);
+
+            console.log(localStorage.getItem("user"));
+            // IdP data available using getAdditionalUserInfo(result)
+            // ...
+          })
+          .catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            const email = error.customData.email;
+            // The AuthCredential type that was used.
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            // ...
+          });
       })
       .catch((error) => {
         // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
       });
   };
 
+  // console.log(events);
+  // console.log(id);
+  // console.log(events[0].teamStrength);
   return (
     <div>
       <section>
@@ -124,16 +178,45 @@ export default function Details() {
               <h3 className="m-2"></h3>
 
               <section>
-                <button
-                  className="btn btn-warning mr-3"
-                  onClick={() => {
-                    handleRegister();
-                  }}
-                >
-                  REGISTER
-                </button>
+                {localStorage.getItem("uid") === null ? (
+                  <button
+                    className="btn btn-warning mr-3"
+                    onClick={() => {
+                      handleSignin();
+                    }}
+                  >
+                    REGISTER
+                  </button>
+                ) : isRegistered ? (
+                  <>
+                    <p
+                      className="registered text-warning"
+                      style={{ fontFamily: "Creepster", letterSpacing: "1px" }}
+                    >
+                      You have successfully registered for the event
+                    </p>
+                    <p
+                      className="text-warning"
+                      style={{ fontFamily: "Creepster", letterSpacing: "1px" }}
+                    >
+                      {" "}
+                      Get ready for the spooky day
+                    </p>
+                  </>
+                ) : (
+                  <RegistrationForm
+                    email={localStorage.getItem("userEmail")}
+                    eventName={name}
+                    eventId={id}
+                    strength={event.teamStrength}
+                  />
+                )}
 
-                {localStorage.getItem("user") && <p>Logged in</p>}
+                {/* <p className="text-warning mt-2">Registration starts soon</p> */}
+
+                {/* {localStorage.getItem("userEmail") && (
+                  <p>Logged in {localStorage.getItem("userEmail")}</p>
+                )} */}
                 <span> </span>
               </section>
             </div>
